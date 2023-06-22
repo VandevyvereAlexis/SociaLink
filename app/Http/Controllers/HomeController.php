@@ -13,15 +13,19 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // seuls les invités non-connectés peuvent voir l'index ( inscription + connection )
+        $this->middleware('guest')->only('index');
+
+        // seuls les visiteurs connectés peuvent voir la liste des messages 
+        $this->middleware('auth')->only('home');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index() // renvoyer la page d'accueil du site ( inscription + connexion )
+    {
+        return view('index');
+    }
+
+    public function home() // renvoyer la page home.balde.php avec tous les messages 
     {
         return view('home');
     }

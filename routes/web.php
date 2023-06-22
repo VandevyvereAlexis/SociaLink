@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
+/* page de connexion / inscription 
+-------------------------------------------------------------------------------------- */
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');                              // route:: méthode http ( utl, [ emplacement du contrôleur concerné, méthode du crtl concerné ]) -> nom de la route
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+/* ACCUEIL ( home.blade.php ) / liste des messages 
+-------------------------------------------------------------------------------------- */
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+
+
+
+
+/* routes AUTHENTIFICATION ( Laravel UI )
+-------------------------------------------------------------------------------------- */
+Auth::routes();                                                                                                     // Avec ça Laravel UI va générer toutes ses routes necessaire
+
+
+
+
+/* routes resource USERS 
+-------------------------------------------------------------------------------------- */
+Route::resource('/users', App\Http\Controllers\UserController::class)->except('index', 'create', 'store');          // pour déclarer les route une par une individuellement
