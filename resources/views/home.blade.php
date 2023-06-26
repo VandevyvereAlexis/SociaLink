@@ -99,30 +99,34 @@
 
                             <!-- pseudo -->
                             <div class="card-header">
-                                <p class="m-0"><small>posté par</small> {{ $post->user->pseudo }} </p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="m-0"><small>posté par</small> {{ $post->user->pseudo }} </p>
+                                    <a href="{{ route('post.edit', $post) }}">
+                                        <i class="fa-solid fa-ellipsis fs-3"></i>
+                                    </a>
+                                </div>
                                 <small>{{ $post->created_at->diffForHumans() }}</small>
+
                             </div>
-    
+
                             <!-- image -->
                             <div class="card-body p-0">
                                 <img class="w-100" src="{{ asset('images/' . $post->image)}}" alt="imagePost">
                             </div>
 
-                            <div class="card-img-overlay d-flex flex-row-reverse p-0">
-                                <i class="fa-regular fa-comment position relative pt-3 pe-3 fs-3"></i>
-                            </div>
-    
                             <!-- tags + post -->
                             <div class="card footer p-2">
                                 <div class="overflow-auto" style="max-height: 150px;">
-                                    <p class="m-0 pb-2 text-primary-emphasis"><small>{{ $post->tags }}</small></p>
+                                    <p class="m-0 pb-2 text-primary"><small>#{{ implode(' #', explode(' ', $post->tags)) }}</small></p>
                                     <p>{{ $post->content }}</p>
                                 </div>
                             </div>
-    
+
+                            
                         </div>
                     </div>
 
+                    
 
                     <!-- si commentaires -->
                     @if (count($post->comments) > 0)
@@ -139,7 +143,13 @@
 
                                     <!-- pseudo -->
                                     <div class="card-header">
-                                        <small>posté par {{ $comment->user->pseudo }} {{ $comment->created_at->diffForHumans() }}</small>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="m-0"><small>posté par</small> {{ $comment->user->pseudo }}</p>
+                                            <a href="{{ route('post.edit', $post) }}">
+                                                <i class="fa-solid fa-ellipsis fs-4"></i>
+                                            </a>
+                                        </div>
+                                        <small>{{ $comment->created_at->diffForHumans() }}</small>
                                     </div>
 
                                     <!-- image -->
@@ -150,7 +160,7 @@
                                     <!-- tags + com -->
                                     <div class="card footer p-2 overflow-auto">
                                         <div class="overflow-auto" style="max-height: 150px;">
-                                            <p class="m-0 pb-2 text-primary-emphasis"><small>{{ $comment->tags }}</small></p>
+                                            <p class="m-0 pb-2 text-primary"><small>#{{ implode(' #', explode(' ', $post->tags)) }}</small></p>
                                             <p class="text-dark">{{ $comment->content }}</p>
                                         </div>
                                     </div>

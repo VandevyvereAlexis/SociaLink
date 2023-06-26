@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="container">
+    <main class="container pt-5">
 
         <h1>Mon compte</h1>
 
@@ -37,6 +37,5 @@
         </form>
         
     </main>
-
 
 @endsection
