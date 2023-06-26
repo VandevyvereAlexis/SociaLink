@@ -34,7 +34,7 @@
 
 
         <div id="app">
-            <nav class="navbar navbar-expand-lg bg-dark fixed-top">
+            <nav class="navbar border-bottom border-bottom-dark navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
                 <div class="container-fluid">
 
                     <a class="navbar-brand text-light" href="{{ url('/') }}">
