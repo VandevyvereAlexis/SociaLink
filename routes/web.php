@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 
 /* page de connexion / inscription 
 -------------------------------------------------------------------------------------- */
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');                              // route:: méthode http ( utl, [ emplacement du contrôleur concerné, méthode du crtl concerné ]) -> nom de la route
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');                              // route:: méthode http ( url, [ emplacement du contrôleur concerné, méthode du crtl concerné ]) -> nom de la route
 
 
 
@@ -39,3 +40,12 @@ Auth::routes();                                                                 
 /* routes resource USERS 
 -------------------------------------------------------------------------------------- */
 Route::resource('/users', App\Http\Controllers\UserController::class)->except('index', 'create', 'store');          // pour déclarer les route une par une individuellement
+
+
+
+
+/* routes resource POST 
+-------------------------------------------------------------------------------------- */
+Route::resource('/post', App\Http\Controllers\PostController::class)->except('index', 'create', 'show'); 
+
+

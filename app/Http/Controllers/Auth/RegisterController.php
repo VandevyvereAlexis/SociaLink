@@ -68,7 +68,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'pseudo' => $data['pseudo'],
-            'image' => $data['image'],
+            'image' => isset($data['image']) ? $data['image'] : null,                                   // if, alors, sinon .. ( si image ect ..)
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
