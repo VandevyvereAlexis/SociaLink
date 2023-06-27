@@ -38,7 +38,7 @@
                 <div class="container-fluid">
 
                     <a class="navbar-brand text-light" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'SociaLink') }}
                     </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -46,11 +46,19 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav me-auto"></ul>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ms-auto">
+
+                            <!-- recherche posts -->
+                            <form class="d-flex me-3" action="{{ route('search') }}" role="search" method="GET">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </form>
+
                             <!-- Authentication Links -->
                             @guest
 

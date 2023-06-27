@@ -71,4 +71,11 @@ class PostController extends Controller
 
         return redirect()->route('home')->with('message', 'Post supprimé avec succès !');
     }
+
+
+
+    public function search(Request $request)
+    {
+        //
+    }
 }

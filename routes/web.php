@@ -44,8 +44,23 @@ Route::resource('/users', App\Http\Controllers\UserController::class)->except('i
 
 
 
+
 /* routes resource POST 
 -------------------------------------------------------------------------------------- */
 Route::resource('/post', App\Http\Controllers\PostController::class)->except('index', 'create', 'show'); 
 
 
+
+
+
+/* routes resource COMMENT 
+-------------------------------------------------------------------------------------- */
+Route::resource('/comment', App\Http\Controllers\CommentController::class)->except('index', 'create', 'show'); 
+
+
+
+
+
+/* routes resource POST 
+-------------------------------------------------------------------------------------- */
+Route::get('/search', [App\Http\Controllers\PostController::class, 'search'])->name('search'); 
