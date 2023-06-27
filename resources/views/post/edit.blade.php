@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="image">Nouvelle image</label>
-                    <input required type="text" class="form-control" placeholder="modifier" name="image" value="{{ $post->image }}" id="image">
+                    <input required type="file" class="form-control" placeholder="modifier" name="image" value="{{ $post->image }}" id="image">
                 </div>
 
                 <div class="form-group">

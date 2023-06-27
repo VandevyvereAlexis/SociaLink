@@ -5,14 +5,15 @@
 
 
 
-
-
-    <!-- HAUT DE PAGE ( POSTER )  
+    <!-- ACCUEIL "FORMULAIRE POST"
     =================================================================================================================== -->
 
+    <!-- container-fluid -->
     <div class="container-fluid" id="home_top" style="background-image: linear-gradient(to right, #0000001c, #00000000), url('../images/image_fond.jpg')">
         <div class="row no-gutters justify-content-center text-center">
 
+
+            
             @if (Route::currentRouteName() == 'search')
                 <h1 class="m-5">Résultat de la recherche</h1>
             @else
@@ -86,128 +87,244 @@
     <!-- titre de la section -->
     <h2 class="bg-dark m-0 text-light border rounded text-dark fs-2">POSTS</h2>
 
-    <!-- boucle qui affiche les messages -->
+    <!-- boucle qui affiche les posts -->
     @foreach ($posts as $post)
 
+        <!-- container fluid -->
         <div class="container-fluid bg-dark p-3 d-flex align-items-center" id="home_body" style="background-image: linear-gradient(to right, #00000051, #00000018), url('../images/image_fond_2.jpg')">
 
-            <!-- card -->
+            <!-- container -->
             <div class="container mb-3 justify-content-center">
                 <div class="row d-flex align-items-center justify-content-center">
     
-                    <!-- gauche, post utilisateur -->
+                    <!-- coté gauche, post user -->
                     <div class="col-md-6 p-0 d-flex align-items-center">
+
+
+
+                        <!-- CARD POST  
+                        =================================================================================================================== -->
                         <div class="card w-75 mx-auto m-3 mt-4" id="card_post">
 
-                            <!-- pseudo -->
+
+
+                            <!-- CARD HEADER 
+                            =================================================================================================================== -->
                             <div class="card-header pb-0">
 
+                                <!-- image user + date du post / pseudo + poubelle delete -->
                                 <div class="d-flex justify-content-between">
+
                                     <!-- image user -->
                                     <img src="images/{{ $post->user->image }}" class="rounded-circle" alt="" style="width: 30px; height: 30px;">
-                                    <!-- posté par, pseudo user -->
+
+                                    <!-- pseudo user -->
                                     <p class="m-0"><small>posté par</small> {{ $post->user->pseudo }} </p>
+
                                     <!-- poubelle delete -->
                                     <form action="{{ route('post.destroy', $post) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="border-0 p-0"><i class="fa-solid fa-trash text-danger"></i></button>
                                     </form>
+
                                 </div>
 
+                                <!-- date de création / modification du post + 3 points "modification -> page modification post" -->
                                 <div class="d-flex justify-content-between mt-1">
-                                    <!-- date de création -->
-                                    <small>{{ $post->created_at->diffForHumans() }} @if ($post->created_at != $post->updated_at) <small class="ps-2">"modifié {{ $post->updated_at->diffForHumans() }}"</small>@endif</small>
-                                    <!-- item pour page modification post -->
+
+                                    <!-- date de création / modification du post-->
+                                    <small>{{ $post->created_at->diffForHumans() }} 
+                                        @if ($post->created_at != $post->updated_at) 
+                                            <small class="ps-2">
+                                                "modifié {{ $post->updated_at->diffForHumans() }}"
+                                            </small>
+                                        @endif
+                                    </small>
+
+                                    <!-- 3 points "modification -> page modification post" -->
                                     <a href="{{ route('post.edit', $post) }}">
                                         <i class="fa-solid fa-ellipsis fs-3"></i>
                                     </a>
+
                                 </div>
 
                             </div>
 
-                            <!-- image -->
+
+
+                            <!-- CARD BODY 
+                            =================================================================================================================== -->
                             <div class="card-body p-0">
+
+                                <!-- image post -->
                                 <img class="w-100" src="{{ asset('images/' . $post->image)}}" alt="imagePost">
+
                             </div>
 
-                            <!-- tags + post -->
+
+
+                            <!-- CARD FOOTER 
+                            =================================================================================================================== -->
                             <div class="card footer p-2">
+
+                                <!-- scroll -->
                                 <div class="overflow-auto" style="max-height: 150px;">
+
+                                    <!-- tags -->
                                     <p class="m-0 pb-2 text-primary"><small>#{{ implode(' #', explode(' ', $post->tags)) }}</small></p>
+
+                                    <!-- texte post -->
                                     <p>{{ $post->content }}</p>
+
                                 </div>
+                                <!-- boutton "commenter" affichant bloc commentaire -->
                                 <button class="btn btn-primary" onclick="document.getElementById('formulairecommentaire{{ $post->id}}').style.display = 'block'">Commenter</button>
+
                             </div>
 
                         </div>
 
                     </div>
 
-                    
 
-                    <!-- si commentaires -->
+
+                    <!-- AFFICHAGE SI POST DEJA COMMENTE
+                    =================================================================================================================== -->
+
+                    <!-- "si" commentaires -->
                     @if (count($post->comments) > 0)
 
-                        <!-- droite, commentaires associé au post -->
+                        <!-- droite, commentaires associés au post -->
                         <div class="col-md-6 p-0 d-flex align-items-center flex-column border border-secondary" id="col_com" style="overflow-y: scroll; height: 550px">
 
-                            <p class="text-light mt-2" id="com_publi"><small>Commentaires de la publication de {{ $post->user->pseudo }}</small></p>
+                            <!-- titre + pseudo -->
+                            <p class="text-light mt-2" id="com_publi"><small>Commentaires du post de {{ $post->user->pseudo }}</small></p>
 
-                            <!-- boucle qui affiche les commentaires -->
+
+
+                            <!-- AFFICHAGE DES POSTS COMMENTAIRE
+                            =================================================================================================================== -->
+
+                            <!-- boucle qui affiche les posts "commentaire" associés au post-->
                             @foreach ($post->comments as $comment)
 
+
+
+                                <!-- BLOC COMMENTAIRE ( pour poster commentaire qui apparaît après clic sur boutton modifier "bloc pour post avec déja des commentaires" )
+                                =================================================================================================================== -->
                                 <div style="display: none" class="col p-3 mb-2" id="formulairecommentaire{{ $post->id }}">
-                                    <form class="w-50 m-auto" action="{{ route('comment.store') }}" method="POST" enctype="multipart/form-data">
+
+                                    <!-- formulaire -->
+                                    <form class="w-100 m-auto border border-primary rounded p-2" action="{{ route('comment.store') }}" method="POST" enctype="multipart/form-data" id="formulaire_boucle_commentaire">
                                         @csrf
-                                        <div class="form-group">
-                                            <label for="content">Tape ton commentaire</label>
-                                            <textarea required class="container" name="content" type="text" id="content"></textarea>
+
+                                        <!-- "X" permettant de refermer bloc commentaires -->
+                                        <div class="form-group d-flex justify-content-end pe-2">
+                                            <input type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
+                                            <button type="submit" class="border-0 p-0 bg-transparent flex-end" onclick="document.getElementById('formulairecommentaire{{ $post->id }}').style.display = 'none'"><i class="fa-solid fa-x text-light"></i></button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="tags">Ajoute des tags</label>
-                                            <input required class="container" type="text" name="tags" id="tags">
+
+                                        <!-- label + input tags -->
+                                        <div class="form-group mb-2">
+                                            <label for="tags"><small class="text-light">Ajoute des tags</small></label>
+                                            <input required class="container rounded" type="text" name="tags" id="tags" placeholder="Ajoute des tags">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="nom">Image</label>
-                                            <input type="file" class="form-control" name="image" id="image" placeholder="">
+
+                                         <!-- label + input image -->
+                                         <div class="form-group mb-2">
+                                             <label for="nom"><small class="text-light">Image</small></label>
+                                             <input type="file" class="form-control" name="image" id="image" placeholder="Image">
+                                         </div>
+
+                                        <!-- texte commentaire -->
+                                        <div class="form-group mb-2">
+                                            <label for="content"><small class="text-light">Tape ton commentaire</small></label>
+                                            <textarea required class="container rounded" name="content" type="text" id="content" placeholder="Tape ton commentaire"></textarea>
                                         </div>
-                                            <input type="form-control" type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
-                                            <button class="btn btn-danger"  onclick="document.getElementById('formulairecommentaire{{ $post->id }}').style.display = 'none'">Annuler</button>
+
+                                        <!-- boutton pour poster le commentaire -->
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary text-center">Valider</button>
+                                        </div>
+
                                     </form>
+
                                 </div>
+
+
+
+                                <!-- CARD COMMENTAIRE
+                                =================================================================================================================== -->
                                 <div class="card w-50 my-3 border border-primary" id="card_com">
 
-                                    <!-- pseudo -->
+
+
+                                    <!-- CARD HEADER 
+                                    =================================================================================================================== -->
                                     <div class="card-header pb-0">
+
+                                        <!-- image user + date du commentaire / pseudo + poubelle delete -->
                                         <div class="d-flex justify-content-between">
+
+                                            <!-- image user -->
                                             <img src="images/{{ $comment->user->image }}" class="rounded-circle m-1" alt="" style="width: 30px; height: 30px;">
+
+                                            <!-- pseudo user -->
                                             <p class="m-0"><small>posté par</small> {{ $comment->user->pseudo }}</p>
+
+                                            <!-- poubelle delete -->
                                             <form action="{{ route('comment.destroy', $comment) }}" method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="border-0 p-0"><i class="fa-solid fa-trash text-danger"></i></button>
                                             </form>
+
                                         </div>
+
+                                        <!-- date de création / modification du commentaire + 3 points "modification -> page modification commentaire" -->
                                         <div class="d-flex justify-content-between mt-1">
+
+                                            <!-- date de création / modification du post-->
                                             <small>{{ $comment->created_at->diffForHumans() }} @if ($comment->created_at != $comment->updated_at) <small class="ps-2">"modifié {{ $comment->updated_at->diffForHumans() }}"</small>@endif</small>
+
+                                            <!-- 3 points "modification -> page modification commentaire" -->
                                             <a href="{{ route('comment.edit', $comment) }}">
                                                 <i class="fa-solid fa-ellipsis fs-4"></i>
                                             </a>
+
                                         </div>
+
                                     </div>
 
-                                    <!-- image -->
+
+
+                                    <!-- CARD BODY 
+                                    =================================================================================================================== -->
                                     <div class="card-body p-0">
+
+                                        <!-- image commentaire -->
                                         <img class="w-100" src="{{ asset('images/' . $comment->image)}}" alt="imagePost">
+
                                     </div>
 
-                                    <!-- tags + com -->
+
+
+                                    <!-- CARD FOOTER 
+                                    =================================================================================================================== -->
                                     <div class="card footer p-2 overflow-auto">
+
+                                        <!-- scroll -->
                                         <div class="overflow-auto" style="max-height: 150px;">
+
+                                            <!-- tags -->
                                             <p class="m-0 pb-2 text-primary"><small>#{{ implode(' #', explode(' ', $comment->tags)) }}</small></p>
+
+                                            <!-- texte commentaire -->
                                             <p class="text-dark">{{ $comment->content }}</p>
+
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -216,28 +333,55 @@
 
                         </div>
 
-                    <!-- si pas de commentaire -->
+
+
+                    <!-- SINON AFFICHAGE SI POST NON COMMENTE
+                    =================================================================================================================== -->
                     @else
+
+
+
+                        <!-- BLOC COMMENTAIRE ( pour poster commentaire qui apparaît après clic sur boutton modifier "bloc pour post avec déja des commentaires" )
+                        =================================================================================================================== -->
                         <div style="display: none" class="col p-3 mb-2" id="formulairecommentaire{{ $post->id }}">
-                            <form class="w-50 m-auto" action="{{ route('comment.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="content">Tape ton commentaire</label>
-                                    <textarea required class="container" name="content" type="text" id="content"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tags">Ajoute des tags</label>
-                                    <input required class="container" type="text" name="tags" id="tags">
-                                </div>
-                                <div class="form-group">
-                                    <label for="nom">Image</label>
-                                    <input type="texte" class="form-control" name="image" id="image" placeholder="">
-                                </div>
+
+                            <!-- formulaire -->
+                            <form class="w-100 m-auto border border-primary rounded p-2" action="{{ route('comment.store') }}" method="POST" enctype="multipart/form-data" id="formulaire_boucle_commentaire">
+                            @csrf
+
+                                <!-- "X" permettant de refermer bloc commentaires -->
+                                <div class="form-group d-flex justify-content-end pe-2">
                                     <input type="hidden" name="post_id" id="post_id" value="{{ $post->id }}">
-                                    <button class="btn btn-danger"  onclick="document.getElementById('formulairecommentaire{{ $post->id }}').style.display = 'none'">Annuler</button>
-                                    <button type="submit" class="btn btn-warning">Valider</button>
+                                    <button type="submit" class="border-0 p-0 bg-transparent flex-end" onclick="document.getElementById('formulairecommentaire{{ $post->id }}').style.display = 'none'"><i class="fa-solid fa-x text-light"></i></button>
+                                </div>
+
+                                <!-- label + input tags -->
+                                <div class="form-group mb-2">
+                                    <label for="tags"><small class="text-light">Ajoute des tags</small></label>
+                                    <input required class="container rounded" type="text" name="tags" id="tags" placeholder="Ajoute des tags">
+                                </div>
+
+                                 <!-- label + input image -->
+                                 <div class="form-group mb-2">
+                                     <label for="nom"><small class="text-light">Image</small></label>
+                                     <input type="file" class="form-control" name="image" id="image" placeholder="Image">
+                                 </div>
+
+                                <!-- texte commentaire -->
+                                <div class="form-group mb-2">
+                                    <label for="content"><small class="text-light">Tape ton commentaire</small></label>
+                                    <textarea required class="container rounded" name="content" type="text" id="content" placeholder="Tape ton commentaire"></textarea>
+                                </div>
+
+                                <!-- boutton pour poster le commentaire -->
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary text-center">Valider</button>
+                                </div>
+
                             </form>
+
                         </div>
+
                     @endif
 
                 </div>
@@ -246,8 +390,11 @@
         </div>
 
     @endforeach
-    
-    <!-- numéros des pages -->
+
+
+
+    <!-- PAGES
+    =================================================================================================================== -->
     <div class="d-flex justify-content-center pt-3 bg-dark">{{ $posts->links() }}</div>
 
 
