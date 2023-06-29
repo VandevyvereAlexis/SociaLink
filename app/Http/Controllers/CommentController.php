@@ -44,6 +44,9 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+
+        $this->authorize('update', $comment);
+
         $request->validate([
             'content' => 'required|min:25|max:1000',
             'tags' => 'required|min:3|max:50',
@@ -64,6 +67,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+
+        $this->authorize('delete', $comment);
+
         $comment->delete();
 
         return redirect()->route('home')->with('message', 'Post supprimé avec succès !');

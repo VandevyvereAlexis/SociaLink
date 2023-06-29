@@ -52,11 +52,9 @@ Route::resource('/post', App\Http\Controllers\PostController::class)->except('in
 
 
 
-
 /* routes resource COMMENT 
 -------------------------------------------------------------------------------------- */
 Route::resource('/comment', App\Http\Controllers\CommentController::class)->except('index', 'create', 'show'); 
-
 
 
 

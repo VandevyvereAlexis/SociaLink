@@ -70,4 +70,5 @@ class User extends Authenticatable
         // return $this->role == "admin";
         return $this->role_id == 2;
     }
+
 }

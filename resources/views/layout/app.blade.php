@@ -55,7 +55,8 @@
 
                             <!-- recherche posts -->
                             <form class="d-flex me-3" action="{{ route('search') }}" role="search" method="GET">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                @csrf
+                                <input class="form-control me-2" type="search" placeholder="Rechercher..." aria-label="Search" name="search">
                                 <button class="btn btn-outline-primary" type="submit">Search</button>
                             </form>
 
@@ -105,25 +106,6 @@
 
                 </div>
             </nav>
-
-
-            <div class="container w-50 text-center p-3">
-
-                @if (session()->has('message'))
-                    <p class="alert alert-success">{{ session()->get('message') }}</p>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-            </div>
 
             @yield('content')
         </div>

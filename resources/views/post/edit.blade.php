@@ -5,42 +5,66 @@
 @endsection
 
 @section('content')
-    <main class="container pt-5">
+    <main>
 
-        <h1>Modification du post</h1>
+        <div class="container-fluid pt-5 d-flex justify-content-center align-items-center flex-column" id="blade_post" style="background-image: linear-gradient(to right, #0000001c, #00000000), url('/images/image_fond.jpg')">
 
-        <div class="row">
-            
-            <form class="col-4 mx-auto" action="{{ route('post.update', $post) }}" method="POST" enctype="multipart/form-data">
+            <!-- titre de la page -->
+            <h1>Modification du post</h1>
+
+            <div class="row">
+
+
+
+                <!-- FORMULAIRE MODIFICATION POST
+                =================================================================================================================== -->
+                <form class="col-4 mx-auto" action="{{ route('post.update', $post) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
 
-                <div class="form-group">
-                    <label for="content">Nouveau texte</label>
-                    <input required type="text" class="form-control" placeholder="modifier" name="content" value="{{ $post->content }}" id="content">
-                </div>
+                    <!-- méthode "PUT" -->
+                    @method('PUT')
 
-                <div class="form-group">
-                    <label for="image">Nouvelle image</label>
-                    <input required type="file" class="form-control" placeholder="modifier" name="image" value="{{ $post->image }}" id="image">
-                </div>
+                    <!-- label + input texte -->
+                    <div class="form-group">
+                        <label for="content">Nouveau texte</label>
+                        <input required type="text" class="form-control" placeholder="modifier" name="content" value="{{ $post->content }}" id="content">
+                    </div>
 
-                <div class="form-group">
-                    <label for="tags">Nouveaux tags</label>
-                    <input required type="text" class="form-control" placeholder="modifier" name="tags" value="{{ $post->tags }}" id="tags">
-                </div>
+                    <!-- label + input image -->
+                    <div class="form-group">
+                        <label for="image">Nouvelle image</label>
+                        <input required type="file" class="form-control" placeholder="modifier" name="image" value="{{ $post->image }}" id="image">
+                    </div>
 
-                
+                    <!-- label + input tags -->
+                    <div class="form-group">
+                        <label for="tags">Nouveaux tags</label>
+                        <input required type="text" class="form-control" placeholder="modifier" name="tags" value="{{ $post->tags }}" id="tags">
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Valider</button>
-            </form>
+                    <!-- boutton validation du post -->
+                    <button type="submit" class="btn btn-primary">Valider</button>
+
+                </form>
+
+
+
+                <!-- FORMULAIRE BOUTTON SUPPRESSION POST
+                =================================================================================================================== -->
+                <form action="{{ route('post.destroy', $post) }}" method="post">
+                @csrf
+    
+                    <!-- méthode "DELETE" -->
+                    @method('delete')
+    
+                    <!-- boutton suppression post -->
+                    <button type="submit" class="btn btn-danger">Supprimer le post</button>
+    
+                </form>
+
+            </div>
+
         </div>
-
-        <form action="{{ route('post.destroy', $post) }}" method="post">
-            @csrf
-            @method('delete')
-            <button type="submit" class="btn btn-danger">Supprimer le post</button>
-        </form>
         
     </main>
 @endsection
