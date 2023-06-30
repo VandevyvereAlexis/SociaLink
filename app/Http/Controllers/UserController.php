@@ -14,8 +14,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user->Load('posts');                           // je charge les posts du user
-        return view('users.profil', compact('user'));    // je renvoie la vue en injectant le user
+        $user->Load('posts');                                                                           // je charge les posts du user
+        return view('users.profil', compact('user'));                                                   // je renvoie la vue en injectant le user
     }
 
     /**
@@ -36,15 +36,12 @@ class UserController extends Controller
             'image' => 'nullable|string'
         ]);
 
-        // on modifie les infos de l'utilisateur
-        $user->pseudo = $request->input('pseudo');
+        $user->pseudo = $request->input('pseudo');                                                      // on modifie les infos de l'utilisateur
         $user->image = $request->input('image');
 
-        // on sauvegarde les changements en base de donées
-        $user->save();
+        $user->save();                                                                                  // on sauvegarde les changements en base de donées
 
-        // on redirige sur la page précédente
-        return back()->with('message', 'Le compte à bien été modifié');
+        return back()->with('message', 'Le compte à bien été modifié');                                 // on redirige sur la page précédente
     }
 
 
@@ -54,6 +51,7 @@ class UserController extends Controller
     {
         // on vérifie que c'est bien l'utilisateur connecté qui fait la demande de suppression
         // ( les id doivent être identiques )
+        
         if (Auth::user()->id == $user->id) {
             $user->delete();
             return redirect()->route('index')->with('message', 'Le compte a bien été supprimé');

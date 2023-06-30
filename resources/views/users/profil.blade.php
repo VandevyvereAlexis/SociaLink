@@ -5,29 +5,34 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid mb-3"
-        style="background-image: linear-gradient(to right, #00000051, #00000018), url('../images/image_fond_2.jpg')"
-        id="profil_blade">
+
+    <!-- container -->
+    <div class="container-fluid mb-3" style="background-image: linear-gradient(to right, #00000051, #00000018), url('../images/image_fond_2.jpg')" id="profil_blade">
         <div class="row justify-content-center">
             <div class="col">
 
-
+                <!-- container -->
                 <div class="container mt-5 pt-5 p-3">
                     <div class="d-flex border rounded mx-auto col px-1 flex-column p-4" style="background-color: rgba(0, 0, 0, 0.412); backdrop-filter: blur(5px)">
                         <div class="col text-center">
 
+                            <!-- si user à un logo -->
                             @if ($user->image)
-                                <img src="{{ asset("images/$user->image") }} " class="rounded-circle text-center"
-                                    style="width: 10vw; height:10vw" alt="imageUtilisateur">
+
+                                <!-- logo user -->
+                                <img src="{{ asset("images/$user->image") }} " class="rounded-circle text-center" style="width: 10vw; height:10vw" alt="imageUtilisateur">
+
+                            <!-- sinon -->
                             @else
-                                <img src="{{ asset('images/default_user.jpg') }} " class="m-1 rounded-circle"
-                                    style="width: 10vw; height:10vw" alt="imageUtilisateur">
+
+                                <!-- logo user par default -->
+                                <img src="{{ asset('images/default_user.jpg') }} " class="m-1 rounded-circle"style="width: 10vw; height:10vw" alt="imageUtilisateur">
+
                             @endif
 
-                            <div class="col pt-3 text-light">bienvenue sur le profil de <h1
-                                    class="font-weight-bold text-warning">
+                            <div class="col pt-3 text-light">bienvenue sur le profil de <h1 class="font-weight-bold text-warning">{{ $user->pseudo }}</h1>
 
-                                    {{ $user->pseudo }}</h1>
+                                <!-- date d'inscription -->
                                 <div class="row p-2">
                                     <div class="col">
                                         <i class="fas fa-arrow-alt-circle-right fa-2x fs-5 text-light"></i>
@@ -36,6 +41,7 @@
                                     </div>
                                 </div>
 
+                                <!-- quantite de posts -->
                                 <div class="row p-2 justify-content-between">
                                     <div class="col">
                                         <i class="fas fa-comments fa-2x fs-5 text-light"></i>
@@ -45,8 +51,9 @@
 
                             </div>
                         </div>
-                        <!-- ***********************************AFFICHER LES post*****************************-->
 
+
+                        <!-- affichage des posts -->
                         @foreach ($user->posts as $post)
 
                                 <!-- container -->

@@ -9,12 +9,9 @@
 
 function uploadImage($image) {
 
-    // on donne un nom à l'image : timestamp en temps unix + extension
-    $imageName = time() . '.' . $image->extension();
+    $imageName = time() . '.' . $image->extension();        // on donne un nom à l'image : timestamp en temps unix + extension
 
-    // on déplacel'image dans public/images
-    $image->move(public_path('images'), $imageName);
+    $image->move(public_path('images'), $imageName);        // on déplacel'image dans public/images
 
-    // on retourne le nom de l'image
-    return $imageName;
+    return $imageName;                                      // on retourne le nom de l'image
 }

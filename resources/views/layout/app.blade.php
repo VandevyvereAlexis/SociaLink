@@ -32,15 +32,18 @@
     ========================================================================================== -->
     <body>
 
-
         <div id="app">
+
+            <!-- navbar -->
             <nav class="navbar border-bottom border-bottom-dark navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
                 <div class="container-fluid">
 
+                    <!-- titre -->
                     <a class="navbar-brand text-light" href="{{ url('/') }}">
                         SociaLink
                     </a>
 
+                    <!-- menu burger -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -53,22 +56,32 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ms-auto">
 
-                            <!-- recherche posts -->
-                            <form class="d-flex me-3" action="{{ route('search') }}" role="search" method="GET">
+                            <!-- je cache la barre de recherche si utilisateur non connecter / inscrit -->
+                            @if (Auth::check())
+
+                                <!-- formulaire recherche posts -->
+                                <form class="d-flex me-3" action="{{ route('search') }}" role="search" method="GET">
                                 @csrf
-                                <input class="form-control me-2" type="search" placeholder="Rechercher..." aria-label="Search" name="search">
-                                <button class="btn btn-outline-primary" type="submit">Rechercher</button>
-                            </form>
+
+                                    <!-- button rechercher -->
+                                    <input class="form-control me-2" type="search" placeholder="Rechercher..." aria-label="Search" name="search">
+                                    <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+
+                                </form>
+
+                            @endif
 
                             <!-- Authentication Links -->
                             @guest
 
+                                <!-- lien connexion -->
                                 @if (Route::has('login'))
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                     </li>
                                 @endif
 
+                                <!-- lien inscritpion -->
                                 @if (Route::has('register'))
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
@@ -77,7 +90,9 @@
 
                             <!-- Liens des invités non connectés + connexion et inscription  -->
                             @else
+
                                 <li class="nav-item dropdown">
+
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->pseudo }}
                                     </a>
@@ -97,9 +112,11 @@
                                         </form>
 
                                     </div>
+
                                 </li>
                             
                             @endguest
+
                         </ul>
 
                     </div>
@@ -108,6 +125,7 @@
             </nav>
 
             @yield('content')
+
         </div>
 
 

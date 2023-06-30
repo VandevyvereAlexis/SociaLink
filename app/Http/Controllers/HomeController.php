@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         /* RECUPERATION DES MESSAGES
         =========================================================== */
-        $posts = Post::with('user', 'comments')->latest()->paginate(10);             // je veux charger en + de mes posts : - les commentaires associés à chaque post ; - l'utilisateur qui a posté chaque post
+        $posts = Post::with('user', 'comments')->latest()->paginate(10);                // je veux charger en + de mes posts : - les commentaires associés à chaque post ; - l'utilisateur qui a posté chaque post
         // dd($posts);                                                                  // je teste cette liste de messages
 
         // $posts = Post::all();                                                        // syntaxe de base : on récupère tous les messages            

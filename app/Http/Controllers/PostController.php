@@ -16,24 +16,24 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(Request $request)                                                 // $request = les données qui viennent du formulaire
-    {                                                                                       // $request['content'] = "salut les gars"
-        $request->validate([                                                                // 1. VALIDATION DES DONNEES On valide les champs en precisant les critères attendus
-            'content' => 'required|min:25|max:1000',                                        // 'name de l'input' => [critères]
+    public function store(Request $request)                                                     // $request = les données qui viennent du formulaire
+    {                                                                                           // $request['content'] = "salut les gars"
+        $request->validate([                                                                    // 1. VALIDATION DES DONNEES On valide les champs en precisant les critères attendus
+            'content' => 'required|min:25|max:1000',                                            // 'name de l'input' => [critères]
             'tags' => 'required|min:3|max:50',
             //'image' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);                                                                                 // autre syntaxe possible : 'content' => ['required', min:25', 'max:1000']
+        ]);                                                                                     // autre syntaxe possible : 'content' => ['required', min:25', 'max:1000']
 
-        Post::create([                                                                      // 2. sauvegarde du message => va lancer un insert into en SQL => 3 syntaxes possibles pour accéder au contenu de $request
-            'content' => $request->content,                                                 // syntaxe objet                                           
-            'tags' => $request['tags'],                                                     // syntaxe tableau associatif
-            //'image' => isset($request['image']) ? $request['image'] : null,                 // autre syntaxe
-            'user_id' => Auth::user()->id,                                                  // j'accède à l'id du user connecté
+        Post::create([                                                                          // 2. sauvegarde du message => va lancer un insert into en SQL => 3 syntaxes possibles pour accéder au contenu de $request
+            'content' => $request->content,                                                     // syntaxe objet                                           
+            'tags' => $request['tags'],                                                         // syntaxe tableau associatif
+            //'image' => isset($request['image']) ? $request['image'] : null,                   // autre syntaxe
+            'user_id' => Auth::user()->id,                                                      // j'accède à l'id du user connecté
             'image' => isset($request['image']) ? uploadImage($request['image']) : "user.jpg",
         ]);
 
-        return redirect()->route('home')->with('message', 'Message créé avec succès !');    // 3. on redirige vers l'accueil avec un message de succès
+        return redirect()->route('home')->with('message', 'Message créé avec succès !');        // 3. on redirige vers l'accueil avec un message de succès
     }
 
     /**
@@ -94,7 +94,7 @@ class PostController extends Controller
         $posts = Post::where('tags', 'like', "%{$search}%")
             ->orWhere('content', 'like', "%{$search}%")
             // ->get();
-            ->paginate(10); // Utiliser paginate() à la place de get()
+            ->paginate(10);                                                                     // Utiliser paginate() à la place de get()
 
         return view('home')->with('posts', $posts);
     }

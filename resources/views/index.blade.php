@@ -13,13 +13,13 @@
             </div>
     
             <!-- boutton inscription + connexion -->
-            <div class="mt-5 justify-content-center text-center boder-bottom">
+            <div class="mt-5justify-content-center text-center boder-bottom">
 
                 <!-- inscription -->
-                <a href="register"><button class="btn btn-lg px-5 btn-primary fs-3 mb-4">Inscription</button></a>
+                <a href="register"><button class="btn btn-lg px-5 btn-primary fs-4 mb-4 m-3"><small>Inscription</small></button></a>
 
                 <!-- connexion -->
-                <a href="login"><button class="btn btn-lg px-5 btn-primary fs-3 mb-4">Connexion</button></a>
+                <a href="login"><button class="btn btn-lg px-5 btn-primary fs-4 mb-4 m-3"><small>Connexion</small></button></a>
 
             </div>
 
