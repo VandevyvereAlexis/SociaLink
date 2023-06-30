@@ -38,15 +38,15 @@
                             <!-- boutton valider -->
                             <button type="submit" class="btn btn-primary">Valider</button>
 
-                            <!-- boutton supprimer -->
-                            <form action="{{route('users.destroy', $user)}}" method="post">
-                            @csrf
-                            @method("delete ")
-                                <button type="submit" class="btn btn-danger">supprimer le compte</button>
-                            </form>
-
                         </div>
 
+                    </form>
+
+                    <!-- boutton supprimer -->
+                    <form action="{{route('users.destroy', $user)}}" method="post">
+                    @csrf
+                    @method("delete ")
+                        <button type="submit" class="btn btn-danger">supprimer le compte</button>
                     </form>
 
                 </div>

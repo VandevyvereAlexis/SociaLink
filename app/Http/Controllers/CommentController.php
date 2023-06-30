@@ -30,7 +30,7 @@ class CommentController extends Controller
             'image' => isset($request['image']) ? uploadImage($request['image']) : "user.jpg",
         ]);
 
-        return redirect()->route('home')->with('message', 'Message créé avec succès !');    
+        return redirect()->route('home')->with('message', 'commentaire créé avec succès !');    
     }   
 
     /**
@@ -63,7 +63,7 @@ class CommentController extends Controller
             'image' => isset($request['image']) ? uploadImage($request['image']) : "user.jpg", 
         ]);
     
-        return redirect()->route('home')->with('message', 'Post modifié avec succès !');
+        return redirect()->route('home')->with('message', 'commentaire modifié avec succès !');
     }
 
     /**
@@ -76,6 +76,6 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return redirect()->route('home')->with('message', 'Post supprimé avec succès !');
+        return redirect()->route('home')->with('message', 'commentaire supprimé avec succès !');
     }
 }

@@ -44,21 +44,21 @@
                         <!-- boutton validation du post -->
                         <button type="submit" class="btn btn-primary">Valider</button>
 
-                        <!-- FORMULAIRE BOUTTON SUPPRESSION POST
-                        =================================================================================================================== -->
-                        <form action="{{ route('post.destroy', $post) }}" method="post">
-                        @csrf
-        
-                            <!-- méthode "DELETE" -->
-                            @method('delete')
-        
-                            <!-- boutton suppression post -->
-                            <button type="submit" class="btn btn-danger">Supprimer le post</button>
-        
-                        </form>
-
                     </div>
 
+                </form>
+
+                <!-- FORMULAIRE BOUTTON SUPPRESSION POST
+                =================================================================================================================== -->
+                <form action="{{ route('post.destroy', $post) }}" method="post">
+                @csrf
+            
+                    <!-- méthode "DELETE" -->
+                    @method('delete')
+            
+                    <!-- boutton suppression post -->
+                    <button type="submit" class="btn btn-danger">Supprimer le post</button>
+            
                 </form>
 
             </div>

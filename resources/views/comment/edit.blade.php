@@ -43,15 +43,15 @@
                         <!-- boutton valider -->
                         <button type="submit" class="btn btn-primary">Valider</button>
 
-                        <!-- boutton supression -->
-                        <form action="{{ route('comment.destroy', $comment) }}" method="post">
-                        @csrf
-                        @method('delete')
-                            <button type="submit" class="btn btn-danger">Supprimer le post</button>
-                        </form>
-
                     </div>
 
+                </form>
+
+                <!-- boutton supression -->
+                <form action="{{ route('comment.destroy', $comment) }}" method="post">
+                @csrf
+                @method('delete')
+                    <button type="submit" class="btn btn-danger">Supprimer le post</button>
                 </form>
 
             </div>
