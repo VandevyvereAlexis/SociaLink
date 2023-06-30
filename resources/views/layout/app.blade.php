@@ -38,7 +38,7 @@
                 <div class="container-fluid">
 
                     <a class="navbar-brand text-light" href="{{ url('/') }}">
-                        {{ config('app.name', 'SociaLink') }}
+                        SociaLink
                     </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -57,7 +57,7 @@
                             <form class="d-flex me-3" action="{{ route('search') }}" role="search" method="GET">
                                 @csrf
                                 <input class="form-control me-2" type="search" placeholder="Rechercher..." aria-label="Search" name="search">
-                                <button class="btn btn-outline-primary" type="submit">Search</button>
+                                <button class="btn btn-outline-primary" type="submit">Rechercher</button>
                             </form>
 
                             <!-- Authentication Links -->
@@ -65,13 +65,13 @@
 
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                     </li>
                                 @endif
 
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                     </li>
                                 @endif
 
@@ -84,12 +84,12 @@
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                        <a href="{{ route('users.edit', $user = Auth::user() )}}">Mon compte</a>
+                                        <a class="dropdown-item" href="{{ route('users.edit', $user = Auth::user() )}}">Mon compte</a>
 
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('Deconnexion') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

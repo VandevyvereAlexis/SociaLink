@@ -1,3 +1,9 @@
+html {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+
 /* HOME.BLADE.PHP
 =================================================================================================================== */
 
@@ -45,6 +51,10 @@
     background-color: rgba(0, 0, 0, 0.412);
     backdrop-filter: blur(5px);
 }
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
 
 
 
@@ -54,7 +64,170 @@
 
 /* EDIT.BLADE.PHP / POST
 =================================================================================================================== */
-#blade_post {
+#blade_modif {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* INDEX.BLADE.PHP
+=================================================================================================================== */
+#index_blade {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#index_blade h1 {
+    text-shadow: 1px 2px 2px black;
+    font-size: 3rem;
+}
+
+#index_blade .border-top {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.256);
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* LOGIN.BLADE.PHP
+=================================================================================================================== */
+#login_blade {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#login_blade .card {
+    background-color: rgba(0, 0, 0, 0.412);
+    backdrop-filter: blur(5px);
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* REGISTER.BLADE.PHP
+=================================================================================================================== */
+#register_blade {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#register_blade .card {
+    background-color: rgba(0, 0, 0, 0.412);
+    backdrop-filter: blur(5px);
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* EDIT.BLADE.PHP / USERS
+=================================================================================================================== */
+#blade_users {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#blade_users .border {
+    background-color: rgba(0, 0, 0, 0.412);
+    backdrop-filter: blur(5px);
+    text-shadow: 1px 1px 1px black;
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* EDIT.BLADE.PHP / MODIF POSTS
+=================================================================================================================== */
+#blade_modif {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#blade_modif .mb-5{
+    background-color: rgba(0, 0, 0, 0.412);
+    backdrop-filter: blur(5px);
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* EDIT.BLADE.PHP / MODIF COMM
+=================================================================================================================== */
+#blade_comm {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#blade_comm .rounded {
+    background-color: rgba(0, 0, 0, 0.412);
+    backdrop-filter: blur(5px);
+}
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+#profil_blade {
     min-height: 100vh;
     width: 100%;
     background-size: cover;

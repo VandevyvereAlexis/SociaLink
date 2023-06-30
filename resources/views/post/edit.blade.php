@@ -7,59 +7,58 @@
 @section('content')
     <main>
 
-        <div class="container-fluid pt-5 d-flex justify-content-center align-items-center flex-column" id="blade_post" style="background-image: linear-gradient(to right, #0000001c, #00000000), url('/images/image_fond.jpg')">
+        <div class="container-fluid d-flex justify-content-center align-items-center flex-column" id="blade_modif" style="background-image: linear-gradient(to right, #0000001c, #00000000), url('/images/image_fond.jpg')">
+            <div class="row border p-4 rounded mb-5">
 
-            <!-- titre de la page -->
-            <h1>Modification du post</h1>
-
-            <div class="row">
-
-
+                <!-- titre de la page -->
+                <h1 class="text-center text-light pb-3">Modification du post</h1>
 
                 <!-- FORMULAIRE MODIFICATION POST
                 =================================================================================================================== -->
-                <form class="col-4 mx-auto" action="{{ route('post.update', $post) }}" method="POST" enctype="multipart/form-data">
+                <form class="col-8 mx-auto text-light" action="{{ route('post.update', $post) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                     <!-- méthode "PUT" -->
                     @method('PUT')
 
                     <!-- label + input texte -->
-                    <div class="form-group">
-                        <label for="content">Nouveau texte</label>
+                    <div class="form-group mb-3">
+                        <label for="content"><small>Nouveau texte</small></label>
                         <input required type="text" class="form-control" placeholder="modifier" name="content" value="{{ $post->content }}" id="content">
                     </div>
 
                     <!-- label + input image -->
-                    <div class="form-group">
-                        <label for="image">Nouvelle image</label>
+                    <div class="form-group mb-3">
+                        <label for="image"><small>Nouvelle image</small></label>
                         <input required type="file" class="form-control" placeholder="modifier" name="image" value="{{ $post->image }}" id="image">
                     </div>
 
                     <!-- label + input tags -->
-                    <div class="form-group">
-                        <label for="tags">Nouveaux tags</label>
+                    <div class="form-group mb-4">
+                        <label for="tags"><small>Nouveaux tags</small></label>
                         <input required type="text" class="form-control" placeholder="modifier" name="tags" value="{{ $post->tags }}" id="tags">
                     </div>
 
-                    <!-- boutton validation du post -->
-                    <button type="submit" class="btn btn-primary">Valider</button>
+                    <div class="d-flex justify-content-center gap-3">
 
-                </form>
+                        <!-- boutton validation du post -->
+                        <button type="submit" class="btn btn-primary">Valider</button>
 
+                        <!-- FORMULAIRE BOUTTON SUPPRESSION POST
+                        =================================================================================================================== -->
+                        <form action="{{ route('post.destroy', $post) }}" method="post">
+                        @csrf
+        
+                            <!-- méthode "DELETE" -->
+                            @method('delete')
+        
+                            <!-- boutton suppression post -->
+                            <button type="submit" class="btn btn-danger">Supprimer le post</button>
+        
+                        </form>
 
+                    </div>
 
-                <!-- FORMULAIRE BOUTTON SUPPRESSION POST
-                =================================================================================================================== -->
-                <form action="{{ route('post.destroy', $post) }}" method="post">
-                @csrf
-    
-                    <!-- méthode "DELETE" -->
-                    @method('delete')
-    
-                    <!-- boutton suppression post -->
-                    <button type="submit" class="btn btn-danger">Supprimer le post</button>
-    
                 </form>
 
             </div>

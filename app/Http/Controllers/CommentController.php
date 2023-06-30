@@ -17,15 +17,17 @@ class CommentController extends Controller
         $request->validate([                                                               
             'content' => 'required|min:25|max:1000',                                        
             'tags' => 'required|min:3|max:50',                                             
-            'image' => 'nullable'
+            //'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);                                                                                 
 
         Comment::create([                                                                      
             'content' => $request->content,                                                                                         
             'tags' => $request['tags'],                                                     
-            'image' => isset($request['image']) ? $request['image'] : null,                 
+            //'image' => isset($request['image']) ? $request['image'] : null,                 
             'user_id' => Auth::user()->id, 
             'post_id' => $request['post_id'],
+            'image' => isset($request['image']) ? uploadImage($request['image']) : "user.jpg",
         ]);
 
         return redirect()->route('home')->with('message', 'Message créé avec succès !');    
@@ -50,13 +52,15 @@ class CommentController extends Controller
         $request->validate([
             'content' => 'required|min:25|max:1000',
             'tags' => 'required|min:3|max:50',
-            'image' => 'nullable'
+            //'image' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         $comment->update([
             'content' => $request->content,
             'tags' => $request['tags'],  
-            'image' => isset($request['image']) ? $request['image'] : null,   
+            //'image' => isset($request['image']) ? $request['image'] : null,  
+            'image' => isset($request['image']) ? uploadImage($request['image']) : "user.jpg", 
         ]);
     
         return redirect()->route('home')->with('message', 'Post modifié avec succès !');

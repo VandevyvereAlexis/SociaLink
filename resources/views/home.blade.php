@@ -7,11 +7,19 @@
 
     <!-- SI RECHERCHE
     =================================================================================================================== -->
-    @if (count($posts) == 0)
+    @if (Route::currentRouteName() == 'search')
 
-        <!-- container-fluid "affichage aucun resultat pour la recherche" -->
-        <div class="container-fluid d-flex align-items-center justify-content-center" id="home_top" style="background-image: linear-gradient(to right, #0000001c, #00000000), url('../images/image_fond_2.jpg')">
-            <div class="row no-gutters justify-content-center text-center">
+        @if (count($posts) == 0)
+
+            <!-- container-fluid "affichage aucun resultat pour la recherche" -->
+            <div class="container-fluid d-flex align-items-center justify-content-center" id="home_top" style="background-image: linear-gradient(to right, #0000001c, #00000000), url('../images/image_fond_2.jpg')">
+                <div class="row no-gutters justify-content-center text-center">
+        
+        @else
+
+            <div class="d-none"></div>
+        
+        @endif
 
     <!-- sinon -->
     @else
@@ -26,25 +34,29 @@
 
                 <!-- MESSAGES "SUCCESS" / "ERROR"
                 =================================================================================================================== -->
-                <div class="container w-50 text-center p-3 mt-5">
+                @if (Route::currentRouteName() == 'search')
+                    <div class="d-none"></div>
+                @else
+                    <div class="container w-50 text-center p-3 mt-5">
 
-                    <!-- "succes" -->
-                    @if (session()->has('message'))
-                        <p class="alert alert-success">{{ session()->get('message') }}</p>
-                    @endif
+                        <!-- "succes" -->
+                        @if (session()->has('message'))
+                            <p class="alert alert-success">{{ session()->get('message') }}</p>
+                        @endif
 
-                    <!-- "error" -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        <!-- "error" -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-                </div>
+                    </div>
+                @endif
 
 
 
@@ -56,23 +68,21 @@
                     @if (count($posts) == 0)
 
                         <!-- affichage titre "aucun resultat..." -->
-                        <div class="border rounded pt-1 mb-5" style="background-color: rgba(0, 0, 0, 0.287); backdrop-filter: blur(7px)">
+                        <div class="border rounded pt-1" style="background-color: rgba(0, 0, 0, 0.287); backdrop-filter: blur(7px)">
                             <h1 class="text-light" style="text-shadow: 1px 1px 1px black">Aucun résultat ne correspond à cette recherche...</h1>
                         </div>
 
                     <!-- sinon -->
                     @else
 
-                        <!-- affichage titre "resultat de la recherche" -->
-                        <h1 class="m-5">Résultat de la recherche</h1>
+                        <div class="d-none"></div>
 
                     @endif
 
                 <!-- sinon -->
                 @else
 
-                    <!-- titre sans recherche -->
-                    <h1 class="m-5 text-light pt-5" style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.462)">Publier quelque chose </h1>
+                    <h1 class="mb-4 text-light" style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.462)">Bienvenue sur SociaLink</h1>
 
 
 
@@ -80,6 +90,8 @@
                     =================================================================================================================== -->
                     <form action="{{ route('post.store') }}" method="POST" class="w-50 border rounded p-5" enctype="multipart/form-data" id="form_ajout_mess">
                     @csrf
+
+                    <h3 class="text-light" style="text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.462)">Publie quelque chose...</h3>
 
                         <div class="col d-flex gap-3 flex-sm-nowrap flex-wrap justify-content-center">
 
@@ -101,7 +113,7 @@
                             <div class="col-md-6">
 
                                 <label for="image" class="col-md-4 col-form-label text-center text-light"><small>{{ __('image')}}</small></label>
-                                <input id="image" type="texte" class="form-control @error('image') is-invalid @enderror" name="image" placeholder="image.jpg" autocomplete="image" autofocus>
+                                <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" placeholder="image.jpg" autocomplete="image" autofocus>
 
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
@@ -126,7 +138,9 @@
                         </div>
 
                         <!-- bouton valider le post -->
-                        <button type="submit" class="btn btn-primary mt-4 px-5"><small>Poster</small></button>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary mt-4 px-4 text-center">Poster</button>
+                        </div>
 
                     </form>
 
@@ -138,7 +152,7 @@
                 =================================================================================================================== -->
 
                 <!-- si aucun resultat suite recheche  -->
-                @if (count($posts) == 0)
+                @if (Route::currentRouteName() == 'search')
 
                     <!-- pas de boutton -->
                     <div class="d-none"></div>
@@ -146,10 +160,11 @@
                 <!-- sinon -->
                 @else
 
-                    <!-- boutton scroll -->
-                    <a href="#home_body" class="mt-5 pt-5">
-                        <button class="btn btn-light px-5 p-3">Consulter les posts</button>
-                    </a>
+                    <div class="mt-5 pt-5">
+                        <a href="#card_post">
+                            <button class="btn btn-primary px-5 border-light p-3">Consulter les posts</button>
+                        </a>
+                    </div>
 
                 @endif
 
@@ -158,26 +173,20 @@
 
 
 
-    <!-- AFFICHAGE DES POSTS 
+    <!-- SI PAS DE RESULTAT SUITE RECHERCHE 
     =================================================================================================================== -->
-
     @if (count($posts) == 0)
 
-        @if (count($posts) == 0)
+        <!-- pas de section -->
+        <div class="d-none"></div>
 
-            <div class="d-none"></div>
-
-        @else
-
-            <div class="container-fluid bg-dark p-3 d-flex align-items-center" id="home_body" style="background-image: linear-gradient(to right, #00000051, #00000018), url('../images/image_fond_2.jpg')">
-                <p class="fixed-top" style="">Auncun résultat</p>
-            </div>
-
-        @endif
-
+    <!-- sinon -->
     @else
 
-        <!-- boucle qui affiche les posts -->
+
+
+        <!-- BOUCLE AFFICHAGE POST 
+        =================================================================================================================== -->
         @foreach ($posts as $post)
 
             <!-- container fluid -->
@@ -205,11 +214,20 @@
                                     <!-- image user + date du post / pseudo + poubelle delete -->
                                     <div class="d-flex justify-content-between">
 
-                                        <!-- image user -->
-                                        <img src="images/{{ $post->user->image }}" class="rounded-circle" alt="" style="width: 30px; height: 30px;">
+                                        <a href="{{route('users.show', $post->user)}}" style="text-decoration: none">
 
-                                        <!-- pseudo user -->
-                                        <p class="m-0"><small>posté par</small> {{ $post->user->pseudo }} </p>
+                                            <!-- image user -->
+                                            <img src="images/{{ $post->user->image }}" class="rounded-circle" alt="" style="width: 30px; height: 30px;">
+                                        
+                                        </a>
+
+                                        <!-- lien vers profil public du user  -->
+                                        <a href="{{route('users.show', $post->user)}}" style="text-decoration: none">
+
+                                            <!-- pseudo user -->
+                                            <p class="m-0 text-primary"><small class="text-dark">posté par</small> {{ $post->user->pseudo }} </p>
+
+                                        </a>
 
                                         @can('delete', $post)
                                             <!-- poubelle delete -->
@@ -329,7 +347,7 @@
                                             <!-- label + input image -->
                                             <div class="form-group mb-2">
                                                 <label for="nom"><small class="text-light">Image</small></label>
-                                                <input type="text" class="form-control" name="image" id="image" placeholder="Image">
+                                                <input type="file" class="form-control" name="image" id="image" placeholder="Image">
                                             </div>
 
                                             <!-- texte commentaire -->
@@ -362,11 +380,21 @@
                                             <!-- image user + date du commentaire / pseudo + poubelle delete -->
                                             <div class="d-flex justify-content-between">
 
-                                                <!-- image user -->
-                                                <img src="images/{{ $comment->user->image }}" class="rounded-circle m-1" alt="" style="width: 30px; height: 30px;">
+                                                <!-- lien vers profil public du user  -->
+                                                <a href="{{route('users.show', $comment->user)}}" style="text-decoration: none">
 
-                                                <!-- pseudo user -->
-                                                <p class="m-0"><small>posté par</small> {{ $comment->user->pseudo }}</p>
+                                                    <!-- image user -->
+                                                    <img src="images/{{ $comment->user->image }}" class="rounded-circle m-1" alt="" style="width: 30px; height: 30px;">
+                                                
+                                                </a>
+
+                                                <!-- lien vers profil public du user  -->
+                                                <a href="{{route('users.show', $comment->user)}}" style="text-decoration: none">
+
+                                                    <!-- pseudo user -->
+                                                    <p class="m-0 text-primary"><small class="text-dark">posté par</small> {{ $comment->user->pseudo }}</p>
+
+                                                </a>
 
                                                 @can('delete', $comment)
                                                     <!-- poubelle delete -->
@@ -489,6 +517,8 @@
             </div>
 
         @endforeach
+
+        <div class="bg-dark text-center p-1 justify-content-center d-flex align-items-center">{{$posts->links()}}</div>
 
     @endif
 
